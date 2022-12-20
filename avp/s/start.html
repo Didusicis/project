@@ -1,0 +1,229 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+  <meta name="viewport" content="width=device-width, user-scalable=no">
+  <meta name="description">
+  <meta name="keywords" content="open source, toolkit, BPMN Modeler, business process, embed, model, editor, integrate, extend">
+
+<script src="https://unpkg.com/@vkontakte/vk-bridge/dist/browser.min.js"></script>
+<script type="text/javascript" src="https://vk.com/js/api/openapi.js?169"></script>
+  
+    <link rel="stylesheet" href="https://unpkg.com/bpmn-js@9.0.3/dist/assets/bpmn-js.css">
+    <link rel="stylesheet" href="https://unpkg.com/bpmn-js@9.0.3/dist/assets/diagram-js.css">
+    <link rel="stylesheet" href="https://unpkg.com/bpmn-js@9.0.3/dist/assets/bpmn-font/css/bpmn.css">
+  
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">	
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+  
+
+
+  <link href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans:400,500,700" rel='stylesheet' type='text/css'>
+
+  <title>BPMN</title>
+
+  <base href="/" />
+
+  <style>
+    body.preload {
+      opacity: 0;
+      overflow: hidden;
+    }
+	  
+.bjs-powered-by {
+       display: none;
+    }
+	
+  
+  </style>
+<script>
+vkBridge.send('VKWebAppInit');
+</script>
+
+</head>
+<body class="preload">
+
+
+
+  <div class="content" id="js-drop-zone">
+
+   
+
+    <div class="canvas" id="js-canvas"></div>
+  </div>
+
+  <div class="io-import-export">
+
+    <ul class="io-import io-control io-control-list io-horizontal">
+      <li>
+        <button title="Открыть BPMN проект из файла" jsaction="click:bio.openLocal">
+          <span class="btn btn-primary btn-sm">Открыть BPMN</span>
+        </button>
+      </li>
+      <li class="vr"></li>
+      <li>
+        <button title="Создать BPMN проект" jsaction="click:bio.createNew">
+          <span class="btn btn-primary btn-sm">Создать BPMN</span>
+        </button>
+      </li>
+    </ul>
+
+    <ul class="io-export io-control io-control-list io-horizontal">
+      <li>
+        <a target="_blank" href class="download" title="Сохранить BPMN проект" jswidget="downloadDiagram" data-track="diagram:download-bpmn">
+          <span class="btn btn-primary btn-sm">Сохранить BPMN</span>
+        </a>
+      </li>
+      <li>
+        <a type="button" target="_blank" href class="download" title="Сохранить картинкой в формате SVG" jswidget="downloadSVG" data-track="diagram:download-svg">
+          <span class="btn btn-primary btn-sm">Сохранить SVG</span>
+        </a>
+      </li>
+    </ul>
+  </div>
+
+  <div class="io-alerts">
+
+   
+  <div class="io-editing-tools" jswidget="editing-tools">
+    <ul class="io-control-list io-horizontal">
+     
+      <li class="io-control">
+        <button title="Развернуть,свернуть полный экран"
+                jsaction="click:bio.toggleFullscreen">
+          <span class="btn btn-warning">Max</span>
+        </button>
+      </li>
+    </ul>
+  </div>
+
+  <div class="io-zoom-controls">
+
+    <ul class="io-zoom-reset io-control io-control-list">
+     
+     
+      <li>
+        <button title="zoom приблизить" jsaction="click:bio.zoomIn">
+          <span class="btn btn-info"> + </span>
+        </button>
+      </li>
+      <li>
+        <hr/>
+      </li>
+      <li>
+        <button href title="zoom отдалить" jsaction="click:bio.zoomOut">
+          <span class="btn btn-info"> - </span>
+        </button>
+      </li>
+    </ul>
+  </div>
+
+
+
+
+  <div class="io-dialog about" jswidget="about-dialog">
+
+  <div class="io-dialog keybindings-dialog" jswidget="keybindings-dialog">
+
+    <div class="content bindings-mac">
+      <h1>Keyboard Shortcuts</h1>
+      <table>
+        <tbody>
+          <tr>
+            <td>Undo</td>
+            <td class="binding">⌘ + Z</td>
+          </tr>
+          <tr>
+            <td>Redo</td>
+            <td class="binding">⌘ + ⇧ + Z</td>
+          </tr>
+          <tr>
+            <td>Select All</td>
+            <td class="binding">⌘ + A</td>
+          </tr>
+          <tr>
+            <td>Scrolling (Vertical)</td>
+            <td class="binding">⌥ + Scrolling</td>
+          </tr>
+          <tr>
+            <td>Scrolling (Horizontal)</td>
+            <td class="binding">⌥ + ⇧ + Scrolling</td>
+          </tr>
+          <tr>
+            <td>Direct Editing</td>
+            <td class="binding">E</td>
+          </tr>
+          <tr>
+            <td>Hand Tool</td>
+            <td class="binding">H</td>
+          </tr>
+          <tr>
+            <td>Lasso Tool</td>
+            <td class="binding">L</td>
+          </tr>
+          <tr>
+            <td>Space Tool</td>
+            <td class="binding">S</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="content bindings-default">
+      <h1>Keyboard Shortcuts</h1>
+      <table>
+        <tbody>
+          <tr>
+            <td>Undo</td>
+            <td class="binding"><code>ctrl + Z</code></td>
+          </tr>
+          <tr>
+            <td>Redo</td>
+            <td class="binding"><code>ctrl + ⇧ + Z</code></td>
+          </tr>
+          <tr>
+            <td>Select All</td>
+            <td class="binding"><code>ctrl + A</code></td>
+          </tr>
+          <tr>
+            <td>Scrolling (Vertical)</td>
+            <td class="binding"><code>ctrl + Scrolling</code></td>
+          </tr>
+          <tr>
+            <td>Scrolling (Horizontal)</td>
+            <td class="binding"><code>ctrl + ⇧ + Scrolling</code></td>
+          </tr>
+          <tr>
+            <td>Direct Editing</td>
+            <td class="binding"><code>E</code></td>
+          </tr>
+          <tr>
+            <td>Hand Tool</td>
+            <td class="binding"><code>H</code></td>
+          </tr>
+          <tr>
+            <td>Lasso Tool</td>
+            <td class="binding"><code>L</code></td>
+          </tr>
+          <tr>
+            <td>Space Tool</td>
+            <td class="binding"><code>S</code></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  
+
+  <script src="https://special.getcurse-tech.ru/polyfills.min.js"></script>
+  <script src="https://special.getcurse-tech.ru/app.min.js" async></script>
+
+
+
+</html>
